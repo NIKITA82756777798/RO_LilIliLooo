@@ -4,7 +4,7 @@
     <link rel="icon" type="image/png" href="./favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Бытовой рогалик — Квартирный апокалипсис</title>
+    <title>Бытовой рогалик 2.0 — Квартирный апокалипсис</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -16,7 +16,7 @@
         }
 
         body {
-            background: linear-gradient(145deg, #1a2a2f 0%, #0e1a1f 100%);
+            background: #0b1410;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -26,28 +26,27 @@
             position: relative;
         }
 
-        /* Главный контейнер игры */
         .game-container {
             max-width: 1300px;
             width: 100%;
-            background: rgba(30, 40, 35, 0.65);
-            backdrop-filter: blur(2px);
+            background: rgba(22, 34, 28, 0.85);
+            backdrop-filter: blur(4px);
             border-radius: 3rem;
             padding: 1.8rem;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,215,150,0.25);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 215, 150, 0.15);
+            border: 1px solid rgba(255, 215, 150, 0.2);
             transition: filter 0.2s;
         }
 
-        /* Метка "только ПК" + сделано J */
+        /* Метка */
         .pc-badge {
             position: fixed;
             bottom: 16px;
             right: 20px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(8px);
             color: #e6d5a8;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 500;
             padding: 6px 14px;
             border-radius: 40px;
@@ -56,95 +55,77 @@
             z-index: 1001;
             pointer-events: none;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        .pc-badge i {
-            margin-right: 5px;
-            font-size: 0.7rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Инструкция - модальное окно */
-        .instruction-modal {
+        /* Модалка выбора сложности */
+        .difficulty-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
+            z-index: 2000;
             font-family: 'Inter', sans-serif;
         }
-        .instruction-card {
+        .difficulty-card {
             background: #1e2b26;
-            max-width: 550px;
+            max-width: 500px;
             width: 90%;
-            border-radius: 2rem;
-            padding: 1.8rem;
+            border-radius: 2.5rem;
+            padding: 2rem;
             color: #fef7d2;
             border: 1px solid #ecca7a;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             animation: fadeSlide 0.25s ease-out;
+            text-align: center;
         }
         @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(20px);}
-            to { opacity: 1; transform: translateY(0);}
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .instruction-card h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        .difficulty-card h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
             border-left: 6px solid #ffbf69;
             padding-left: 1rem;
+            text-align: left;
         }
-        .instruction-card ul {
-            margin: 1rem 0 1.5rem 1.5rem;
-            line-height: 1.5;
-        }
-        .instruction-card li {
-            margin: 10px 0;
-        }
-        .instruction-card .hotkey {
-            background: #00000066;
-            padding: 3px 10px;
-            border-radius: 2rem;
-            font-family: monospace;
-            font-weight: bold;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        .instruction-note {
-            background: #00000044;
-            border-radius: 1.2rem;
-            padding: 8px 12px;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            text-align: center;
-            border-left: 3px solid #ffbf69;
-        }
-        .instruction-buttons {
+        .diff-buttons {
             display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 20px;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
         }
-        .inst-btn {
-            background: #3d5a50;
+        .diff-btn {
+            background: #2f4740;
             border: none;
-            padding: 10px 20px;
-            border-radius: 2rem;
-            font-weight: bold;
+            padding: 14px;
+            border-radius: 3rem;
+            font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
-            color: white;
-            transition: 0.1s;
+            color: #fff;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 1px solid transparent;
         }
-        .inst-btn:hover {
-            background: #5f8b74;
+        .diff-btn:hover {
             transform: scale(1.02);
+            border-color: #ffbf69;
         }
+        .diff-btn.easy { background: #3d6b4f; }
+        .diff-btn.normal { background: #7a6a3a; }
+        .diff-btn.hard { background: #7a3a3a; }
+        .diff-btn i { font-size: 1.2rem; }
 
         .game-layout {
             display: flex;
@@ -158,7 +139,7 @@
             background: #1f2c26;
             border-radius: 2rem;
             padding: 1rem;
-            box-shadow: inset 0 0 8px #00000030, 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 8px #00000030, 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         .grid {
             display: grid;
@@ -178,9 +159,8 @@
             justify-content: center;
             font-size: 1.8rem;
             transition: all 0.1s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             cursor: pointer;
-            backdrop-filter: brightness(0.98);
             border: 1px solid #5e7f6e;
         }
         .cell.player-cell {
@@ -211,7 +191,7 @@
             flex-direction: column;
             gap: 1.5rem;
             border: 1px solid #b9b07e50;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
         .stat-card {
             background: #0f1915;
@@ -225,16 +205,30 @@
             margin: 8px 0;
             font-weight: 500;
         }
-        .health-bar, .energy-bar, .clean-bar {
+        .health-bar,
+        .energy-bar,
+        .clean-bar {
             height: 10px;
             background: #3e2a2a;
             border-radius: 10px;
             overflow: hidden;
             margin-top: 4px;
         }
-        .health-fill { background: #ff7b6e; width: 100%; height: 100%; }
-        .energy-fill { background: #ffd966; width: 100%; height: 100%; }
-        .clean-fill { background: #6ed9a0; width: 100%; height: 100%; }
+        .health-fill {
+            background: #ff7b6e;
+            width: 100%;
+            height: 100%;
+        }
+        .energy-fill {
+            background: #ffd966;
+            width: 100%;
+            height: 100%;
+        }
+        .clean-fill {
+            background: #6ed9a0;
+            width: 100%;
+            height: 100%;
+        }
         .inventory-box {
             background: #0f1915;
             border-radius: 1.5rem;
@@ -258,7 +252,10 @@
             transition: 0.1s;
             border: 1px solid #bbaa77;
         }
-        .inv-item:hover { background: #4e6e5a; transform: scale(1.02);}
+        .inv-item:hover {
+            background: #4e6e5a;
+            transform: scale(1.02);
+        }
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -279,10 +276,19 @@
             transition: 0.1s;
             font-size: 0.8rem;
         }
-        .btn-danger { background: #884b3a; }
-        .btn-success { background: #397e5a; }
-        .btn-warning { background: #b07e42; }
-        .btn:hover { filter: brightness(1.15); transform: translateY(-2px);}
+        .btn-danger {
+            background: #884b3a;
+        }
+        .btn-success {
+            background: #397e5a;
+        }
+        .btn-warning {
+            background: #b07e42;
+        }
+        .btn:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
         .event-log {
             background: #0b1411cc;
             border-radius: 1.2rem;
@@ -293,326 +299,487 @@
             font-family: monospace;
             color: #d6d1b1;
         }
-        .log-entry { padding: 4px 0; border-bottom: 1px solid #63856e30; }
-        h3 i, .btn i { pointer-events: none; }
+        .log-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid #63856e30;
+        }
+        .hotkeys-hint {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #a0b8aa;
+            background: #0f1915;
+            border-radius: 2rem;
+            padding: 6px 14px;
+            margin-top: 8px;
+        }
+        .hotkeys-hint span {
+            background: #1f2f28;
+            padding: 2px 10px;
+            border-radius: 2rem;
+        }
+
         @media (max-width: 700px) {
-            .cell { font-size: 1.2rem; }
-            .grid { gap: 4px; }
+            .cell {
+                font-size: 1.2rem;
+            }
+            .grid {
+                gap: 4px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="game-container" id="gameContainer">
-    <div class="game-layout">
-        <div class="map-area">
-            <div class="grid" id="gameGrid"></div>
-            <div style="display: flex; justify-content: space-between; margin-top: 12px; gap: 8px;">
-                <div style="color:#cbd5c0; font-size:12px;"><i class="fas fa-arrow-up"></i> <i class="fas fa-arrow-down"></i> <i class="fas fa-arrow-left"></i> <i class="fas fa-arrow-right"></i> Движение</div>
-                <div style="color:#cbd5c0; font-size:12px;"><i class="fas fa-broom"></i> C — Уборка &nbsp;| <i class="fas fa-box-open"></i> E — Использовать инвентарь</div>
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="stat-card">
-                <h3><i class="fas fa-house-chimney"></i> Бытовой рогалик</h3>
-                <div class="stat-row"><span class="stat-label">❤️ Здоровье</span><span class="stat-value" id="hpVal">0</span></div>
-                <div class="health-bar"><div class="health-fill" id="hpFill"></div></div>
-                <div class="stat-row"><span class="stat-label">⚡ Энергия</span><span class="stat-value" id="enVal">0</span></div>
-                <div class="health-bar"><div class="energy-fill" id="enFill"></div></div>
-                <div class="stat-row"><span class="stat-label">🧼 Чистота дома</span><span class="stat-value" id="clVal">0</span></div>
-                <div class="health-bar"><div class="clean-fill" id="clFill"></div></div>
-                <div class="stat-row"><span class="stat-label">🗡️ Оружие</span><span class="stat-value" id="weaponLabel">🧹 Швабра</span></div>
-                <div class="stat-row"><span class="stat-label">📊 Этаж</span><span class="stat-value" id="floorLvl">1</span></div>
-            </div>
-            <div class="inventory-box">
-                <div class="inventory-title"><i class="fas fa-backpack"></i> Рюкзак (кликни для использования)</div>
-                <div class="inv-items" id="inventoryList"></div>
-                <div class="action-buttons">
-                    <button class="btn btn-success" id="cleanBtn"><i class="fas fa-broom"></i> Уборка</button>
-                    <button class="btn btn-warning" id="restBtn"><i class="fas fa-bed"></i> Отдых</button>
-                    <button class="btn btn-danger" id="restartBtn"><i class="fas fa-undo-alt"></i> Перерождение</button>
+
+    <div class="game-container" id="gameContainer">
+        <div class="game-layout">
+            <div class="map-area">
+                <div class="grid" id="gameGrid"></div>
+                <div class="hotkeys-hint">
+                    <span><i class="fas fa-arrow-up"></i><i class="fas fa-arrow-down"></i><i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i> Движение</span>
+                    <span><i class="fas fa-broom"></i> C — Уборка</span>
+                    <span><i class="fas fa-box-open"></i> E — Инвентарь</span>
+                    <span><i class="fas fa-bed"></i> R — Отдых</span>
                 </div>
             </div>
-            <div class="event-log" id="eventLog"></div>
+            <div class="info-panel">
+                <div class="stat-card">
+                    <h3><i class="fas fa-house-chimney"></i> Бытовой рогалик 2.0</h3>
+                    <div class="stat-row"><span>❤️ Здоровье</span><span id="hpVal">0</span></div>
+                    <div class="health-bar"><div class="health-fill" id="hpFill"></div></div>
+                    <div class="stat-row"><span>⚡ Энергия</span><span id="enVal">0</span></div>
+                    <div class="health-bar"><div class="energy-fill" id="enFill"></div></div>
+                    <div class="stat-row"><span>🧼 Чистота</span><span id="clVal">0</span></div>
+                    <div class="health-bar"><div class="clean-fill" id="clFill"></div></div>
+                    <div class="stat-row"><span>🗡️ Оружие</span><span id="weaponLabel">🧹 Швабра</span></div>
+                    <div class="stat-row"><span>📊 Этаж</span><span id="floorLvl">1</span></div>
+                    <div class="stat-row"><span>🎯 Сложность</span><span id="diffLabel">Нормальная</span></div>
+                </div>
+                <div class="inventory-box">
+                    <div class="inventory-title"><i class="fas fa-backpack"></i> Рюкзак (клик для использования)</div>
+                    <div class="inv-items" id="inventoryList"></div>
+                    <div class="action-buttons">
+                        <button class="btn btn-success" id="cleanBtn"><i class="fas fa-broom"></i> Уборка</button>
+                        <button class="btn btn-warning" id="restBtn"><i class="fas fa-bed"></i> Отдых</button>
+                        <button class="btn btn-danger" id="restartBtn"><i class="fas fa-undo-alt"></i> Перерождение</button>
+                    </div>
+                </div>
+                <div class="event-log" id="eventLog"></div>
+            </div>
         </div>
     </div>
-</div>
-<div class="pc-badge">
-    <i class="fas fa-desktop"></i> Только ПК &nbsp;|&nbsp; <i class="fas fa-code"></i> Сделано J
-</div>
+    <div class="pc-badge">
+        <i class="fas fa-desktop"></i> Только ПК &nbsp;|&nbsp; <i class="fas fa-code"></i> Сделано J
+    </div>
 
-<script>
-    // ------------------ ИГРОВАЯ ЛОГИКА (Рогалик быт) ------------------
-    const SIZE = 7;
-    let gameMap = [];
-    let player = { x: 3, y: 3, hp: 45, maxHp: 45, energy: 40, maxEnergy: 40, cleanliness: 60, maxClean: 100, weaponBonus: 2, floor: 1 };
-    let enemies = [];
-    let items = [];
-    let stairsPos = null;
-    let inventory = new Map();
-    let gameOver = false;
+    <script>
+        // --------------------------------------------------------------
+        // ИГРОВАЯ ЛОГИКА — БЫТОВОЙ РОГАЛИК 2.0
+        // --------------------------------------------------------------
+        const SIZE = 7;
+        let gameMap = [];
+        let player = {};
+        let enemies = [];
+        let items = [];
+        let stairsPos = null;
+        let inventory = new Map();
+        let gameOver = false;
+        let difficulty = 'normal'; // 'easy', 'normal', 'hard'
+        let bossActive = false;
+        let bossDefeated = false;
 
-    const enemyTypes = [
-        { name: "🧹 Пыльный монстр", emoji: "👾", baseHp: 14, dmg: 4, cleanDmg: 2 },
-        { name: "🍽️ Гора посуды", emoji: "🍽️", baseHp: 18, dmg: 5, cleanDmg: 3 },
-        { name: "🧦 Злобный носок", emoji: "🧦", baseHp: 8, dmg: 3, cleanDmg: 1 },
-        { name: "🗑️ Мусорный босс", emoji: "🗑️", baseHp: 28, dmg: 7, cleanDmg: 4 }
-    ];
-    const itemTypes = [
-        { name: "🍕 Пицца", emoji: "🍕", effect: { hp: 12, energy: 8 }, desc: "+12 HP, +8 энергия" },
-        { name: "⚡ Энергетик", emoji: "⚡", effect: { energy: 18 }, desc: "+18 энергия" },
-        { name: "🧴 Чистящее средство", emoji: "🧴", effect: { clean: 14 }, desc: "+14 чистота" },
-        { name: "💪 Супер-швабра", emoji: "🪄", effect: { weaponUp: 2 }, desc: "Урон +2 (навсегда)" },
-        { name: "🐞 Спрей от насекомых", emoji: "💨", effect: { aoe: 8 }, desc: "8 урона всем врагам в доме" }
-    ];
+        // Типы врагов (обычные)
+        const enemyTypes = [
+            { name: "Пыльный монстр", emoji: "👾", baseHp: 14, dmg: 4, cleanDmg: 2 },
+            { name: "Гора посуды", emoji: "🍽️", baseHp: 18, dmg: 5, cleanDmg: 3 },
+            { name: "Злобный носок", emoji: "🧦", baseHp: 8, dmg: 3, cleanDmg: 1 },
+            { name: "Мусорный босс", emoji: "🗑️", baseHp: 28, dmg: 7, cleanDmg: 4 }
+        ];
 
-    function addLog(msg, isError = false) {
-        const logDiv = document.getElementById("eventLog");
-        const entry = document.createElement("div");
-        entry.className = "log-entry";
-        entry.style.color = isError ? "#ffb4a2" : "#e9f5db";
-        entry.innerHTML = `📌 ${msg}`;
-        logDiv.appendChild(entry);
-        entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        while (logDiv.children.length > 40) logDiv.removeChild(logDiv.children[0]);
-    }
+        // ФИНАЛЬНЫЙ БОСС (появляется на этажах, кратных 5)
+        const bossTemplate = {
+            name: "🧟 Квартирный Хозяин — Повелитель Хаоса",
+            emoji: "👹",
+            baseHp: 55,
+            dmg: 12,
+            cleanDmg: 8,
+            isBoss: true
+        };
 
-    function updateUI() {
-        document.getElementById("hpVal").innerText = `${player.hp}/${player.maxHp}`;
-        document.getElementById("enVal").innerText = `${player.energy}/${player.maxEnergy}`;
-        document.getElementById("clVal").innerText = `${player.cleanliness}/${player.maxClean}`;
-        document.getElementById("floorLvl").innerText = player.floor;
-        let weaponText = player.weaponBonus >= 4 ? "✨ Чудо-швабра (+" + player.weaponBonus + ")" : (player.weaponBonus >= 2 ? "🧹 Швабра (+" + player.weaponBonus + ")" : "🧽 Губка (+" + player.weaponBonus + ")");
-        document.getElementById("weaponLabel").innerText = weaponText;
-        let hpPercent = (player.hp / player.maxHp) * 100;
-        let enPercent = (player.energy / player.maxEnergy) * 100;
-        let cleanPercent = (player.cleanliness / player.maxClean) * 100;
-        document.getElementById("hpFill").style.width = Math.max(0, hpPercent) + "%";
-        document.getElementById("enFill").style.width = Math.max(0, enPercent) + "%";
-        document.getElementById("clFill").style.width = Math.max(0, cleanPercent) + "%";
+        const itemTypes = [
+            { name: "Пицца", emoji: "🍕", effect: { hp: 12, energy: 8 }, desc: "+12 HP, +8 энергия" },
+            { name: "Энергетик", emoji: "⚡", effect: { energy: 18 }, desc: "+18 энергия" },
+            { name: "Чистящее средство", emoji: "🧴", effect: { clean: 14 }, desc: "+14 чистота" },
+            { name: "Супер-швабра", emoji: "🪄", effect: { weaponUp: 2 }, desc: "Урон +2 (навсегда)" },
+            { name: "Спрей от насекомых", emoji: "💨", effect: { aoe: 8 }, desc: "8 урона всем врагам" }
+        ];
 
-        const invContainer = document.getElementById("inventoryList");
-        invContainer.innerHTML = "";
-        if (inventory.size === 0) invContainer.innerHTML = "<div style='color:#7e9a89; padding:5px;'>пусто...</div>";
-        else {
-            for (let [itemName, count] of inventory.entries()) {
-                let found = itemTypes.find(i => i.name === itemName);
-                let emoji = found ? found.emoji : "📦";
-                let btn = document.createElement("div");
-                btn.className = "inv-item";
-                btn.innerHTML = `${emoji} ${itemName} x${count}`;
-                btn.onclick = () => useInventoryItem(itemName);
-                invContainer.appendChild(btn);
+        // --------------------------------------------------------------
+        // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+        // --------------------------------------------------------------
+        function addLog(msg, isError = false) {
+            const logDiv = document.getElementById("eventLog");
+            const entry = document.createElement("div");
+            entry.className = "log-entry";
+            entry.style.color = isError ? "#ffb4a2" : "#e9f5db";
+            entry.innerHTML = `📌 ${msg}`;
+            logDiv.appendChild(entry);
+            entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            while (logDiv.children.length > 40) logDiv.removeChild(logDiv.children[0]);
+        }
+
+        function updateUI() {
+            document.getElementById("hpVal").innerText = `${player.hp}/${player.maxHp}`;
+            document.getElementById("enVal").innerText = `${player.energy}/${player.maxEnergy}`;
+            document.getElementById("clVal").innerText = `${player.cleanliness}/${player.maxClean}`;
+            document.getElementById("floorLvl").innerText = player.floor;
+            let weaponText = player.weaponBonus >= 4 ? "✨ Чудо-швабра (+" + player.weaponBonus + ")" : (player.weaponBonus >= 2 ? "🧹 Швабра (+" + player.weaponBonus + ")" :
+                "🧽 Губка (+" + player.weaponBonus + ")");
+            document.getElementById("weaponLabel").innerText = weaponText;
+            let hpPercent = (player.hp / player.maxHp) * 100;
+            let enPercent = (player.energy / player.maxEnergy) * 100;
+            let cleanPercent = (player.cleanliness / player.maxClean) * 100;
+            document.getElementById("hpFill").style.width = Math.max(0, hpPercent) + "%";
+            document.getElementById("enFill").style.width = Math.max(0, enPercent) + "%";
+            document.getElementById("clFill").style.width = Math.max(0, cleanPercent) + "%";
+
+            const invContainer = document.getElementById("inventoryList");
+            invContainer.innerHTML = "";
+            if (inventory.size === 0) invContainer.innerHTML = "<div style='color:#7e9a89; padding:5px;'>пусто...</div>";
+            else {
+                for (let [itemName, count] of inventory.entries()) {
+                    let found = itemTypes.find(i => i.name === itemName);
+                    let emoji = found ? found.emoji : "📦";
+                    let btn = document.createElement("div");
+                    btn.className = "inv-item";
+                    btn.innerHTML = `${emoji} ${itemName} x${count}`;
+                    btn.onclick = () => useInventoryItem(itemName);
+                    invContainer.appendChild(btn);
+                }
+            }
+            drawMap();
+        }
+
+        function drawMap() {
+            const gridContainer = document.getElementById("gameGrid");
+            gridContainer.innerHTML = "";
+            for (let i = 0; i < SIZE; i++) {
+                for (let j = 0; j < SIZE; j++) {
+                    const cellDiv = document.createElement("div");
+                    cellDiv.className = "cell";
+                    let content = "";
+                    if (player.x === j && player.y === i && !gameOver) {
+                        cellDiv.classList.add("player-cell");
+                        content = "🧑‍🍳";
+                    } else if (enemies.some(e => e.x === j && e.y === i)) {
+                        let enemy = enemies.find(e => e.x === j && e.y === i);
+                        content = enemy.emoji;
+                        cellDiv.classList.add("enemy-cell");
+                        if (enemy.isBoss) cellDiv.style.boxShadow = "0 0 0 3px #ff4444, 0 0 20px #ff2222";
+                    } else if (items.some(it => it.x === j && it.y === i)) {
+                        let itm = items.find(it => it.x === j && it.y === i);
+                        content = itm.emoji;
+                        cellDiv.classList.add("item-cell");
+                    } else if (stairsPos && stairsPos.x === j && stairsPos.y === i) {
+                        content = "🚪✨";
+                        cellDiv.classList.add("stairs-cell");
+                    } else {
+                        content = "⬜";
+                    }
+                    cellDiv.innerText = content;
+                    gridContainer.appendChild(cellDiv);
+                }
             }
         }
-        drawMap();
-    }
 
-    function drawMap() {
-        const gridContainer = document.getElementById("gameGrid");
-        gridContainer.innerHTML = "";
-        for (let i = 0; i < SIZE; i++) {
-            for (let j = 0; j < SIZE; j++) {
-                const cellDiv = document.createElement("div");
-                cellDiv.className = "cell";
-                let content = "";
-                if (player.x === j && player.y === i && !gameOver) {
-                    cellDiv.classList.add("player-cell");
-                    content = "🧑‍🍳";
-                } else if (enemies.some(e => e.x === j && e.y === i)) {
-                    let enemy = enemies.find(e => e.x === j && e.y === i);
-                    content = enemy.emoji;
-                    cellDiv.classList.add("enemy-cell");
-                } else if (items.some(it => it.x === j && it.y === i)) {
-                    let itm = items.find(it => it.x === j && it.y === i);
-                    content = itm.emoji;
-                    cellDiv.classList.add("item-cell");
-                } else if (stairsPos && stairsPos.x === j && stairsPos.y === i) {
-                    content = "🚪✨";
-                    cellDiv.classList.add("stairs-cell");
+        // --------------------------------------------------------------
+        // ГЕНЕРАЦИЯ УРОВНЯ
+        // --------------------------------------------------------------
+        function generateLevel(floorNum) {
+            enemies = [];
+            items = [];
+            bossActive = false;
+            bossDefeated = false;
+            player.x = Math.floor(SIZE / 2);
+            player.y = Math.floor(SIZE / 2);
+
+            // Лестница
+            let exitX, exitY;
+            do {
+                exitX = Math.floor(Math.random() * SIZE);
+                exitY = Math.floor(Math.random() * SIZE);
+            } while ((exitX === player.x && exitY === player.y) || (Math.abs(exitX - player.x) + Math.abs(exitY - player.y) < 3));
+            stairsPos = { x: exitX, y: exitY };
+
+            // Количество врагов зависит от сложности
+            let baseEnemyCount = 4 + Math.min(floorNum, 6);
+            if (difficulty === 'easy') baseEnemyCount = Math.max(2, baseEnemyCount - 2);
+            else if (difficulty === 'hard') baseEnemyCount = baseEnemyCount + 2;
+
+            // Финальный босс на этажах кратных 5 (начиная с 5)
+            let isBossFloor = (floorNum % 5 === 0 && floorNum >= 5);
+
+            // Обычные враги
+            let enemyCount = isBossFloor ? Math.max(2, baseEnemyCount - 2) : baseEnemyCount;
+            for (let i = 0; i < enemyCount; i++) {
+                let ex, ey;
+                do {
+                    ex = Math.floor(Math.random() * SIZE);
+                    ey = Math.floor(Math.random() * SIZE);
+                } while ((ex === player.x && ey === player.y) || (stairsPos.x === ex && stairsPos.y === ey) || enemies.some(e => e.x === ex && e.y === ey));
+                let isBossType = (floorNum % 3 === 0 && i === 0 && floorNum > 1) ? 3 : Math.floor(Math.random() * (floorNum > 2 ? 4 : 3));
+                let tpl = enemyTypes[Math.min(isBossType, 3)];
+                let newEnemy = {
+                    name: tpl.name,
+                    emoji: tpl.emoji,
+                    hp: tpl.baseHp + Math.floor(floorNum * 1.3),
+                    maxHp: tpl.baseHp + Math.floor(floorNum * 1.3),
+                    dmg: tpl.dmg + Math.floor(floorNum * 0.6),
+                    cleanDmg: tpl.cleanDmg + Math.floor(floorNum * 0.5),
+                    x: ex,
+                    y: ey,
+                    isBoss: false
+                };
+                enemies.push(newEnemy);
+            }
+
+            // Добавляем босса, если этаж кратен 5
+            if (isBossFloor) {
+                let bx, by;
+                do {
+                    bx = Math.floor(Math.random() * SIZE);
+                    by = Math.floor(Math.random() * SIZE);
+                } while ((bx === player.x && by === player.y) || (stairsPos.x === bx && stairsPos.y === by) || enemies.some(e => e.x === bx && e.y === by));
+                let boss = {
+                    name: bossTemplate.name,
+                    emoji: bossTemplate.emoji,
+                    hp: bossTemplate.baseHp + Math.floor(floorNum * 2.5),
+                    maxHp: bossTemplate.baseHp + Math.floor(floorNum * 2.5),
+                    dmg: bossTemplate.dmg + Math.floor(floorNum * 1.2),
+                    cleanDmg: bossTemplate.cleanDmg + Math.floor(floorNum * 1),
+                    x: bx,
+                    y: by,
+                    isBoss: true
+                };
+                enemies.push(boss);
+                bossActive = true;
+                addLog(`👹 НА ЭТАЖЕ ПОЯВИЛСЯ БОСС: ${boss.name}!`, true);
+            }
+
+            // Предметы
+            let itemCount = 2 + Math.floor(Math.random() * 3) + Math.floor(floorNum / 2);
+            if (difficulty === 'easy') itemCount += 1;
+            if (difficulty === 'hard') itemCount = Math.max(2, itemCount - 1);
+
+            for (let i = 0; i < itemCount; i++) {
+                let ix, iy;
+                do {
+                    ix = Math.floor(Math.random() * SIZE);
+                    iy = Math.floor(Math.random() * SIZE);
+                } while ((ix === player.x && iy === player.y) || (stairsPos.x === ix && stairsPos.y === iy) || enemies.some(e => e.x === ix && e.y === iy) || items
+                    .some(it => it.x === ix && it.y === iy));
+                let randItem = { ...itemTypes[Math.floor(Math.random() * itemTypes.length)] };
+                items.push({ name: randItem.name, emoji: randItem.emoji, effect: randItem.effect, x: ix, y: iy });
+            }
+
+            updateUI();
+            let bossMsg = isBossFloor ? " ⚠️ БОСС НА ЭТАЖЕ!" : "";
+            addLog(`🏠 ЭТАЖ ${floorNum}: ${enemies.length} врагов, ищи выход → ✨.${bossMsg}`);
+        }
+
+        // --------------------------------------------------------------
+        // БОЕВКА, ХОДЫ, ДЕЙСТВИЯ
+        // --------------------------------------------------------------
+        function checkGameOver() {
+            if (player.hp <= 0) { gameOver = true;
+                addLog("💀 Вы сдались под напором грязи... Игра окончена.", true); return true; }
+            if (player.cleanliness <= 0) { gameOver = true;
+                addLog("🧴 Дом утонул в хаосе! Вы проиграли.", true); return true; }
+            if (player.energy <= 0) { gameOver = true;
+                addLog("😴 Истощение. Сил больше нет.", true); return true; }
+            return false;
+        }
+
+        function enemiesTurn() {
+            if (gameOver) return;
+            for (let enemy of enemies) {
+                if (enemy.hp <= 0) continue;
+                const dx = player.x - enemy.x;
+                const dy = player.y - enemy.y;
+                if (Math.abs(dx) + Math.abs(dy) === 1) {
+                    let damage = Math.max(1, enemy.dmg - Math.floor(player.weaponBonus / 3));
+                    player.hp -= damage;
+                    let cleanLoss = enemy.cleanDmg;
+                    player.cleanliness = Math.max(0, player.cleanliness - cleanLoss);
+                    addLog(`💢 ${enemy.name} атакует! -${damage}❤️ и -${cleanLoss}🧼`, true);
+                    if (checkGameOver()) return;
                 } else {
-                    content = "⬜";
-                }
-                cellDiv.innerText = content;
-                gridContainer.appendChild(cellDiv);
-            }
-        }
-    }
-
-    function generateLevel(floorNum) {
-        enemies = [];
-        items = [];
-        player.x = Math.floor(SIZE/2);
-        player.y = Math.floor(SIZE/2);
-        let exitX, exitY;
-        do {
-            exitX = Math.floor(Math.random() * SIZE);
-            exitY = Math.floor(Math.random() * SIZE);
-        } while ((exitX === player.x && exitY === player.y) || (Math.abs(exitX - player.x) + Math.abs(exitY - player.y) < 3));
-        stairsPos = { x: exitX, y: exitY };
-
-        let enemyCount = 4 + Math.min(floorNum, 6);
-        for (let i = 0; i < enemyCount; i++) {
-            let ex, ey;
-            do {
-                ex = Math.floor(Math.random() * SIZE);
-                ey = Math.floor(Math.random() * SIZE);
-            } while ((ex === player.x && ey === player.y) || (stairsPos.x === ex && stairsPos.y === ey) || enemies.some(e => e.x === ex && e.y === ey));
-            let isBoss = (floorNum % 3 === 0 && i === 0 && floorNum > 1) ? 3 : Math.floor(Math.random() * (floorNum > 2 ? 4 : 3));
-            let tpl = enemyTypes[Math.min(isBoss, 3)];
-            let newEnemy = {
-                name: tpl.name, emoji: tpl.emoji,
-                hp: tpl.baseHp + Math.floor(floorNum * 1.3),
-                maxHp: tpl.baseHp + Math.floor(floorNum * 1.3),
-                dmg: tpl.dmg + Math.floor(floorNum * 0.6),
-                cleanDmg: tpl.cleanDmg + Math.floor(floorNum * 0.5),
-                x: ex, y: ey
-            };
-            enemies.push(newEnemy);
-        }
-        let itemCount = 2 + Math.floor(Math.random() * 3) + Math.floor(floorNum/2);
-        for (let i=0; i<itemCount; i++) {
-            let ix, iy;
-            do {
-                ix = Math.floor(Math.random() * SIZE);
-                iy = Math.floor(Math.random() * SIZE);
-            } while ((ix === player.x && iy === player.y) || (stairsPos.x === ix && stairsPos.y === iy) || enemies.some(e=> e.x===ix && e.y===iy) || items.some(it=> it.x===ix && it.y===iy));
-            let randItem = { ...itemTypes[Math.floor(Math.random() * itemTypes.length)] };
-            items.push({ name: randItem.name, emoji: randItem.emoji, effect: randItem.effect, x: ix, y: iy });
-        }
-        updateUI();
-        addLog(`🏠 ЭТАЖ ${floorNum}: ${enemies.length} врагов, найди выход → ✨. Чистота решает!`);
-    }
-
-    function checkGameOver() {
-        if (player.hp <= 0) { gameOver = true; addLog("💀 Вы сдались под напором грязи... Игра окончена.", true); return true; }
-        if (player.cleanliness <= 0) { gameOver = true; addLog("🧴 Дом утонул в хаосе! Вы проиграли.", true); return true; }
-        if (player.energy <= 0) { gameOver = true; addLog("😴 Истощение. Сил больше нет.", true); return true; }
-        return false;
-    }
-
-    function enemiesTurn() {
-        if (gameOver) return;
-        for (let enemy of enemies) {
-            if (enemy.hp <= 0) continue;
-            const dx = player.x - enemy.x;
-            const dy = player.y - enemy.y;
-            if (Math.abs(dx) + Math.abs(dy) === 1) {
-                let damage = Math.max(1, enemy.dmg - Math.floor(player.weaponBonus/3));
-                player.hp -= damage;
-                let cleanLoss = enemy.cleanDmg;
-                player.cleanliness = Math.max(0, player.cleanliness - cleanLoss);
-                addLog(`💢 ${enemy.name} атакует! -${damage}❤️ и -${cleanLoss}🧼`, true);
-                if (checkGameOver()) return;
-            } else {
-                let stepX = 0, stepY = 0;
-                if (Math.abs(dx) > Math.abs(dy)) stepX = dx > 0 ? 1 : -1;
-                else stepY = dy > 0 ? 1 : -1;
-                let newX = enemy.x + stepX, newY = enemy.y + stepY;
-                if (newX>=0 && newX<SIZE && newY>=0 && newY<SIZE && !enemies.some(e=> e.x===newX && e.y===newY) && !(player.x===newX && player.y===newY) && !(stairsPos && stairsPos.x===newX && stairsPos.y===newY)) {
-                    enemy.x = newX; enemy.y = newY;
+                    let stepX = 0,
+                        stepY = 0;
+                    if (Math.abs(dx) > Math.abs(dy)) stepX = dx > 0 ? 1 : -1;
+                    else stepY = dy > 0 ? 1 : -1;
+                    let newX = enemy.x + stepX,
+                        newY = enemy.y + stepY;
+                    if (newX >= 0 && newX < SIZE && newY >= 0 && newY < SIZE && !enemies.some(e => e.x === newX && e.y === newY) && !(player.x === newX &&
+                            player.y === newY) && !(stairsPos && stairsPos.x === newX && stairsPos.y === newY)) {
+                        enemy.x = newX;
+                        enemy.y = newY;
+                    }
                 }
             }
+            updateUI();
+            checkGameOver();
         }
-        updateUI();
-        checkGameOver();
-    }
 
-    function attackEnemyAt(x, y) {
-        let idx = enemies.findIndex(e => e.x === x && e.y === y);
-        if (idx !== -1) {
-            let isCrit = Math.random() < 0.2;
-            let dmg = 5 + player.weaponBonus + Math.floor(Math.random() * 6);
-            if (isCrit) { dmg = Math.floor(dmg * 1.6); addLog(`💥 КРИТИЧЕСКАЯ УБОРКА! +${dmg} урона!`); }
-            enemies[idx].hp -= dmg;
-            addLog(`⚔️ Вы бьёте ${enemies[idx].name} на ${dmg} урона!`);
-            if (enemies[idx].hp <= 0) {
-                addLog(`✅ Побеждён ${enemies[idx].name}! Чистота +3, энергия +2`);
-                player.cleanliness = Math.min(player.maxClean, player.cleanliness + 3);
-                player.energy = Math.min(player.maxEnergy, player.energy + 2);
-                enemies.splice(idx,1);
+        function attackEnemyAt(x, y) {
+            let idx = enemies.findIndex(e => e.x === x && e.y === y);
+            if (idx !== -1) {
+                let isCrit = Math.random() < 0.2;
+                let dmg = 5 + player.weaponBonus + Math.floor(Math.random() * 6);
+                if (isCrit) { dmg = Math.floor(dmg * 1.6);
+                    addLog(`💥 КРИТИЧЕСКАЯ УБОРКА! +${dmg} урона!`); }
+                enemies[idx].hp -= dmg;
+                addLog(`⚔️ Вы бьёте ${enemies[idx].name} на ${dmg} урона!`);
+                if (enemies[idx].hp <= 0) {
+                    if (enemies[idx].isBoss) {
+                        addLog(`🏆 БОСС ПОВЕРЖЕН! +15 чистоты, +10 энергии, урон +1 навсегда!`);
+                        player.cleanliness = Math.min(player.maxClean, player.cleanliness + 15);
+                        player.energy = Math.min(player.maxEnergy, player.energy + 10);
+                        player.weaponBonus += 1;
+                        bossDefeated = true;
+                        bossActive = false;
+                    } else {
+                        addLog(`✅ Побеждён ${enemies[idx].name}! Чистота +3, энергия +2`);
+                        player.cleanliness = Math.min(player.maxClean, player.cleanliness + 3);
+                        player.energy = Math.min(player.maxEnergy, player.energy + 2);
+                    }
+                    enemies.splice(idx, 1);
+                    updateUI();
+                    return true;
+                }
                 updateUI();
                 return true;
             }
+            return false;
+        }
+
+        function pickupItemAt(x, y) {
+            let idx = items.findIndex(i => i.x === x && i.y === y);
+            if (idx !== -1) {
+                let item = items[idx];
+                let count = inventory.get(item.name) || 0;
+                inventory.set(item.name, count + 1);
+                addLog(`📦 Подобрали: ${item.name} — ${itemTypes.find(t=>t.name===item.name)?.desc || "полезность"}`);
+                items.splice(idx, 1);
+                updateUI();
+                return true;
+            }
+            return false;
+        }
+
+        function useInventoryItem(itemName) {
+            if (gameOver) return;
+            let count = inventory.get(itemName);
+            if (!count) return;
+            let itemDef = itemTypes.find(i => i.name === itemName);
+            if (!itemDef) return;
+            let eff = itemDef.effect;
+            if (eff.hp) player.hp = Math.min(player.maxHp, player.hp + eff.hp);
+            if (eff.energy) player.energy = Math.min(player.maxEnergy, player.energy + eff.energy);
+            if (eff.clean) player.cleanliness = Math.min(player.maxClean, player.cleanliness + eff.clean);
+            if (eff.weaponUp) { player.weaponBonus += eff.weaponUp;
+                addLog(`🛠️ Оружие усилено! +${eff.weaponUp} урона.`); }
+            if (eff.aoe) {
+                let dmgAOE = eff.aoe;
+                for (let e of enemies) { e.hp -= dmgAOE;
+                    addLog(`💨 Спрей атакует ${e.name} на ${dmgAOE} урона!`); }
+                enemies = enemies.filter(e => e.hp > 0);
+                addLog(`🌪️ Битва с вредителями очищена! Врагов осталось: ${enemies.length}`);
+            }
+            inventory.set(itemName, count - 1);
+            if (inventory.get(itemName) === 0) inventory.delete(itemName);
             updateUI();
-            return true;
-        }
-        return false;
-    }
-
-    function pickupItemAt(x,y) {
-        let idx = items.findIndex(i => i.x === x && i.y === y);
-        if (idx !== -1) {
-            let item = items[idx];
-            let count = inventory.get(item.name) || 0;
-            inventory.set(item.name, count + 1);
-            addLog(`📦 Подобрали: ${item.name} — ${itemTypes.find(t=>t.name===item.name)?.desc || "полезность"}`);
-            items.splice(idx,1);
+            addLog(`🔮 Использован ${itemName}.`);
+            if (checkGameOver()) return;
+            enemiesTurn();
+            checkGameOver();
             updateUI();
-            return true;
         }
-        return false;
-    }
 
-    function useInventoryItem(itemName) {
-        if (gameOver) return;
-        let count = inventory.get(itemName);
-        if (!count) return;
-        let itemDef = itemTypes.find(i => i.name === itemName);
-        if (!itemDef) return;
-        let eff = itemDef.effect;
-        if (eff.hp) player.hp = Math.min(player.maxHp, player.hp + eff.hp);
-        if (eff.energy) player.energy = Math.min(player.maxEnergy, player.energy + eff.energy);
-        if (eff.clean) player.cleanliness = Math.min(player.maxClean, player.cleanliness + eff.clean);
-        if (eff.weaponUp) { player.weaponBonus += eff.weaponUp; addLog(`🛠️ Оружие усилено! +${eff.weaponUp} урона.`); }
-        if (eff.aoe) {
-            let dmgAOE = eff.aoe;
-            for (let e of enemies) { e.hp -= dmgAOE; addLog(`💨 Спрей атакует ${e.name} на ${dmgAOE} урона!`); }
-            enemies = enemies.filter(e => e.hp > 0);
-            addLog(`🌪️ Битва с вредителями очищена! Врагов осталось: ${enemies.length}`);
+        function cleanAction() {
+            if (gameOver) return;
+            if (player.energy < 1) { addLog("Нет энергии для уборки!", true); return; }
+            let gain = 10 + Math.floor(Math.random() * 8);
+            player.cleanliness = Math.min(player.maxClean, player.cleanliness + gain);
+            player.energy -= 1;
+            addLog(`🧹 Навёл порядок! +${gain} чистоты. -1⚡`);
+            updateUI();
+            if (checkGameOver()) return;
+            enemiesTurn();
+            updateUI();
         }
-        inventory.set(itemName, count - 1);
-        if (inventory.get(itemName) === 0) inventory.delete(itemName);
-        updateUI();
-        addLog(`🔮 Использован ${itemName}.`);
-        if (checkGameOver()) return;
-        enemiesTurn();
-        checkGameOver();
-        updateUI();
-    }
 
-    function cleanAction() {
-        if (gameOver) return;
-        if (player.energy < 1) { addLog("Нет энергии для уборки!", true); return; }
-        let gain = 10 + Math.floor(Math.random() * 8);
-        player.cleanliness = Math.min(player.maxClean, player.cleanliness + gain);
-        player.energy -= 1;
-        addLog(`🧹 Навёл порядок! +${gain} чистоты. -1⚡`);
-        updateUI();
-        if (checkGameOver()) return;
-        enemiesTurn();
-        updateUI();
-    }
+        function restAction() {
+            if (gameOver) return;
+            let hpReg = 6 + Math.floor(Math.random() * 6);
+            let enReg = 6 + Math.floor(Math.random() * 6);
+            player.hp = Math.min(player.maxHp, player.hp + hpReg);
+            player.energy = Math.min(player.maxEnergy, player.energy + enReg);
+            addLog(`🛌 Отдых: +${hpReg}❤️ и +${enReg}⚡`);
+            updateUI();
+            if (checkGameOver()) return;
+            enemiesTurn();
+            updateUI();
+        }
 
-    function restAction() {
-        if (gameOver) return;
-        let hpReg = 6 + Math.floor(Math.random() * 6);
-        let enReg = 6 + Math.floor(Math.random() * 6);
-        player.hp = Math.min(player.maxHp, player.hp + hpReg);
-        player.energy = Math.min(player.maxEnergy, player.energy + enReg);
-        addLog(`🛌 Отдых: +${hpReg}❤️ и +${enReg}⚡`);
-        updateUI();
-        if (checkGameOver()) return;
-        enemiesTurn();
-        updateUI();
-    }
-
-    function movePlayer(dx, dy) {
-        if (gameOver) return false;
-        if (player.energy < 1) { addLog("Не хватает энергии!", true); return false; }
-        let nx = player.x + dx, ny = player.y + dy;
-        if (nx < 0 || nx >= SIZE || ny < 0 || ny >= SIZE) return false;
-        if (enemies.some(e => e.x === nx && e.y === ny)) {
-            attackEnemyAt(nx, ny);
+        function movePlayer(dx, dy) {
+            if (gameOver) return false;
+            if (player.energy < 1) { addLog("Не хватает энергии!", true); return false; }
+            let nx = player.x + dx,
+                ny = player.y + dy;
+            if (nx < 0 || nx >= SIZE || ny < 0 || ny >= SIZE) return false;
+            if (enemies.some(e => e.x === nx && e.y === ny)) {
+                attackEnemyAt(nx, ny);
+                player.energy -= 1;
+                updateUI();
+                if (checkGameOver()) return true;
+                enemiesTurn();
+                updateUI();
+                return true;
+            }
+            if (items.some(i => i.x === nx && i.y === ny)) {
+                pickupItemAt(nx, ny);
+                player.x = nx;
+                player.y = ny;
+                player.energy -= 1;
+                updateUI();
+                if (checkGameOver()) return true;
+                enemiesTurn();
+                updateUI();
+                return true;
+            }
+            if (stairsPos && stairsPos.x === nx && stairsPos.y === ny) {
+                // Проверка: если на этаже босс ещё жив, нельзя уйти
+                if (bossActive && enemies.some(e => e.isBoss && e.hp > 0)) {
+                    addLog("👹 Босс ещё жив! Победи его, чтобы пройти!", true);
+                    return false;
+                }
+                addLog(`🚪 ПЕРЕХОД НА ЭТАЖ ${player.floor+1}! Бонус +5 к запасам.`);
+                player.floor++;
+                player.hp = Math.min(player.maxHp + 2, player.hp + 5);
+                player.energy = Math.min(player.maxEnergy + 2, player.energy + 5);
+                player.maxHp += 2;
+                player.maxEnergy += 2;
+                player.hp = Math.min(player.maxHp, player.hp);
+                player.energy = Math.min(player.maxEnergy, player.energy);
+                generateLevel(player.floor);
+                updateUI();
+                return true;
+            }
+            player.x = nx;
+            player.y = ny;
             player.energy -= 1;
             updateUI();
             if (checkGameOver()) return true;
@@ -620,103 +787,96 @@
             updateUI();
             return true;
         }
-        if (items.some(i => i.x === nx && i.y === ny)) {
-            pickupItemAt(nx, ny);
-            player.x = nx; player.y = ny;
-            player.energy -= 1;
+
+        // --------------------------------------------------------------
+        // СБРОС И НОВАЯ ИГРА
+        // --------------------------------------------------------------
+        function restartGame(selectedDifficulty) {
+            if (selectedDifficulty) difficulty = selectedDifficulty;
+            gameOver = false;
+            bossActive = false;
+            bossDefeated = false;
+            let diffBonus = 0;
+            let diffLabel = "Нормальная";
+            if (difficulty === 'easy') { diffBonus = 10;
+                diffLabel = "Лёгкая"; } else if (difficulty === 'hard') { diffBonus = -8;
+                diffLabel = "Сложная"; }
+
+            player = {
+                x: 3,
+                y: 3,
+                hp: 48 + diffBonus,
+                maxHp: 48 + diffBonus,
+                energy: 42 + diffBonus,
+                maxEnergy: 42 + diffBonus,
+                cleanliness: 65 + diffBonus,
+                maxClean: 100,
+                weaponBonus: 2,
+                floor: 1
+            };
+            inventory.clear();
+            enemies = [];
+            items = [];
+            document.getElementById("diffLabel").innerText = diffLabel;
+            generateLevel(1);
+            addLog(`✨ НОВАЯ ИГРА! Сложность: ${diffLabel}. Борись за идеальный быт! ✨`);
             updateUI();
-            if (checkGameOver()) return true;
-            enemiesTurn();
-            updateUI();
-            return true;
         }
-        if (stairsPos && stairsPos.x === nx && stairsPos.y === ny) {
-            addLog(`🚪 ПЕРЕХОД НА ЭТАЖ ${player.floor+1}! Бонус +5 к запасам.`);
-            player.floor++;
-            player.hp = Math.min(player.maxHp+2, player.hp + 5);
-            player.energy = Math.min(player.maxEnergy+2, player.energy + 5);
-            player.maxHp += 2;
-            player.maxEnergy += 2;
-            player.hp = Math.min(player.maxHp, player.hp);
-            player.energy = Math.min(player.maxEnergy, player.energy);
-            generateLevel(player.floor);
-            updateUI();
-            return true;
+
+        // --------------------------------------------------------------
+        // МОДАЛКА ВЫБОРА СЛОЖНОСТИ
+        // --------------------------------------------------------------
+        function showDifficultyModal() {
+            const modal = document.createElement('div');
+            modal.className = 'difficulty-modal';
+            modal.innerHTML = `
+                <div class="difficulty-card">
+                    <h2><i class="fas fa-broom"></i> Бытовой рогалик 2.0</h2>
+                    <p style="margin-bottom: 10px; color:#d4cca0;">Выбери сложность, чтобы начать новую игру</p>
+                    <div class="diff-buttons">
+                        <button class="diff-btn easy" data-diff="easy"><i class="fas fa-seedling"></i> Лёгкая — больше предметов, меньше врагов</button>
+                        <button class="diff-btn normal" data-diff="normal"><i class="fas fa-balance-scale"></i> Нормальная — классический опыт</button>
+                        <button class="diff-btn hard" data-diff="hard"><i class="fas fa-dragon"></i> Сложная — выживают сильнейшие</button>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.8rem; color:#a0b8aa;">
+                        <i class="fas fa-desktop"></i> Управление: стрелки — движение, C — уборка, R — отдых, E — инвентарь
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.querySelectorAll('.diff-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const diff = btn.dataset.diff;
+                    modal.remove();
+                    restartGame(diff);
+                };
+            });
         }
-        player.x = nx; player.y = ny;
-        player.energy -= 1;
-        updateUI();
-        if (checkGameOver()) return true;
-        enemiesTurn();
-        updateUI();
-        return true;
-    }
 
-    function restartGame() {
-        gameOver = false;
-        player = { x: 3, y: 3, hp: 48, maxHp: 48, energy: 42, maxEnergy: 42, cleanliness: 65, maxClean: 100, weaponBonus: 2, floor: 1 };
-        inventory.clear();
-        enemies = []; items = [];
-        generateLevel(1);
-        addLog("✨ НОВАЯ ИГРА! Борись за идеальный быт. Удачи, домохозяин! ✨");
-        updateUI();
-    }
+        // --------------------------------------------------------------
+        // КЛАВИШИ И КНОПКИ
+        // --------------------------------------------------------------
+        window.addEventListener("keydown", (e) => {
+            if (gameOver && e.key !== 'r' && e.key !== 'R') return;
+            const key = e.key;
+            if (key === 'ArrowUp') movePlayer(0, -1);
+            else if (key === 'ArrowDown') movePlayer(0, 1);
+            else if (key === 'ArrowLeft') movePlayer(-1, 0);
+            else if (key === 'ArrowRight') movePlayer(1, 0);
+            else if (key === 'c' || key === 'с') cleanAction();
+            else if (key === 'e' || key === 'E') { addLog("Кликни на предмет в инвентаре, чтобы использовать", false); }
+            else if (key === 'r' || key === 'R') restAction();
+            e.preventDefault();
+        });
 
-    // ------------------ ИНСТРУКЦИЯ + ЗАПУСК (с пометкой про ПК и J) ------------------
-    function showInstructions() {
-        const modal = document.createElement('div');
-        modal.className = 'instruction-modal';
-        modal.innerHTML = `
-            <div class="instruction-card">
-                <h2><i class="fas fa-broom"></i> Бытовой рогалик — Гайд</h2>
-                <p>Вы — уставший житель, пытающийся выжить в хаосе собственной квартиры. Каждый этаж — новая зона беспорядка.</p>
-                <ul>
-                    <li><span class="hotkey">⬆️ ⬇️ ⬅️ ➡️</span> Движение по клеткам</li>
-                    <li><span class="hotkey">C</span> — Уборка (повышает чистоту, тратит энергию)</li>
-                    <li><span class="hotkey">E</span> — Открыть/использовать предметы (клик по рюкзаку)</li>
-                    <li><span class="hotkey">Клик по предмету</span> в рюкзаке — мгновенный эффект</li>
-                    <li><span class="hotkey">🚪✨</span> — Лестница на следующий этаж</li>
-                    <li><i class="fas fa-skull"></i> Враги атакуют в ответ и пачкают квартиру. Чистота влияет на выживание!</li>
-                    <li><i class="fas fa-chart-line"></i> С каждым этажом враги сильнее, но и награда выше.</li>
-                    <li>💡 <strong>Совет:</strong> Отдыхай, убирайся, не дай грязи победить!</li>
-                </ul>
-                <div class="instruction-note">
-                    <i class="fas fa-desktop"></i> <strong>Только ПК</strong> — управление с клавиатуры. Игра создана специально для компьютера.<br>
-                    <i class="fas fa-code"></i> Сделано <strong>J</strong> с любовью к рогаликам и быту.
-                </div>
-                <div class="instruction-buttons">
-                    <button class="inst-btn" id="skipIntroBtn"><i class="fas fa-forward"></i> Пропустить инструкцию</button>
-                    <button class="inst-btn" id="closeInstBtn">Начать уборку 🧹</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        const close = () => modal.remove();
-        document.getElementById('closeInstBtn').onclick = close;
-        document.getElementById('skipIntroBtn').onclick = close;
-        modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-    }
+        document.getElementById("cleanBtn").onclick = () => cleanAction();
+        document.getElementById("restBtn").onclick = () => restAction();
+        document.getElementById("restartBtn").onclick = () => showDifficultyModal();
 
-    // обработка клавиш
-    window.addEventListener("keydown", (e) => {
-        if (gameOver && e.key !== 'r' && e.key !== 'R') return;
-        const key = e.key;
-        if (key === 'ArrowUp') movePlayer(0, -1);
-        else if (key === 'ArrowDown') movePlayer(0, 1);
-        else if (key === 'ArrowLeft') movePlayer(-1, 0);
-        else if (key === 'ArrowRight') movePlayer(1, 0);
-        else if (key === 'c' || key === 'с') cleanAction();
-        else if (key === 'e' || key === 'E') { addLog("Кликни на предмет в инвентаре, чтобы использовать", false); }
-        else if (key === 'r' || key === 'R') restartGame();
-        e.preventDefault();
-    });
-    document.getElementById("cleanBtn").onclick = () => cleanAction();
-    document.getElementById("restBtn").onclick = () => restAction();
-    document.getElementById("restartBtn").onclick = () => restartGame();
-
-    // Старт игры
-    restartGame();
-    showInstructions();
-</script>
+        // --------------------------------------------------------------
+        // СТАРТ
+        // --------------------------------------------------------------
+        showDifficultyModal();
+    </script>
 </body>
 </html>
